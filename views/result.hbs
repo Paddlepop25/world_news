@@ -1,3 +1,4 @@
+{{#if hasContent}}
 {{#each newsContent}}
 <div class="news-result mt-4">
   <h4>{{this.title}}</h4>
@@ -9,7 +10,7 @@
     <img src="/images/cat.jpg" alt="">
     {{/if}}
     <br>
-      <figcaption>{{this.summary}}</figcaption>
+    <figcaption>{{this.summary}}</figcaption>
   </div>
 
   <div class="row more-info">
@@ -17,8 +18,14 @@
       <p>{{this.time}}</p>
     </div>
     <div class="col link">
-      <a href="{{this.link}} target="_blank">Read more...</a>
+      <a href="{{this.link}}" target="_blank">Read more...</a>
     </div>
   </div>
 </div>
 {{/each}}
+{{else}}
+<div class="no-result">
+  <h3>Your search returns no result</h3>
+  <img src="/images/cat.jpg" alt="">
+</div>
+{{/if}}

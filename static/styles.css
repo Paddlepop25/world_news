@@ -34,3 +34,8 @@ img {
 .link {
   text-align: right;
 }
+
+.no-result, .error404 {
+  margin-top: 30px;
+  text-align: center;
+}

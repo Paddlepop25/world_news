@@ -13,16 +13,16 @@ const API_KEY = process.env.API_KEY || ""
 const NEWS_URL = 'https://newsapi.org/v2/top-headlines'
 
 // configure handlebars
-app.engine('hbs', handlebars({ defaultLayout: 'default.hbs'}))
+app.engine('hbs', handlebars({ defaultLayout: 'default.hbs' }))
 app.set('view engine', 'hbs')
 
 // configure app
 app.get('/',
-(req, res) => {
-  res.status(200)
-  res.type('text/html')
-  res.render('news')
-})
+  (req, res) => {
+    res.status(200)
+    res.type('text/html')
+    res.render('news')
+  })
 
 // https://newsapi.org/v2/top-headlines
 // ?q=covid
@@ -32,11 +32,11 @@ app.get('/',
 
 // https://newsapi.org/v2/top-headlines?q=covid&country=us&category=general&apiKey=8ad077af14414be291611998efbc6d1b
 
-app.get('/search', 
+app.get('/search',
   // only used for POST
   // express.urlencoded({ extended: true }),
   // express.json(),
-  async (req, res) => {
+  async (req, res, next) => {
     const search = req.query
     const searchTerm = req.query['search-term']
     const country = req.query['country']
@@ -57,7 +57,7 @@ app.get('/search',
     // console.info(result)
     const returnedNews = await result.json()
     // console.info(news)
-    
+
     const newsContent = returnedNews.articles
       .map((news) => {
         return { title: news.title, image: news.urlToImage, summary: news.description, time: news.publishedAt, link: news.url }
@@ -66,14 +66,23 @@ app.get('/search',
 
     res.status(200)
     res.type('text/html')
-    res.render('result', { newsContent })
-  }  
+    res.render('result', {
+      newsContent,
+      hasContent: newsContent.length > 0
+    })
+  }
 )
+
+// app.use((req, res) => {
+//   res.status(404)
+//   res.type('text/html')
+//   res.redirect('error404')
+// })
 
 // use static
 app.use(express.static(__dirname + '/static'))
 
 // start server
-app.listen(PORT, 
-    console.info(`Application started on port ${PORT} on ${new Date()}`)
-  )
+app.listen(PORT,
+  console.info(`Application started on port ${PORT} on ${new Date()}`)
+)
