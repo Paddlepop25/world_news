@@ -33,14 +33,16 @@ app.get('/',
 // https://newsapi.org/v2/top-headlines?q=covid&country=us&category=general&apiKey=8ad077af14414be291611998efbc6d1b
 
 app.get('/search', 
-  express.urlencoded({ extended: true }),
-  express.json(),
+  // only used for POST
+  // express.urlencoded({ extended: true }),
+  // express.json(),
   async (req, res) => {
     const search = req.query
     const searchTerm = req.query['search-term']
     const country = req.query['country']
     const category = req.query['category']
     // console.info('search ------>', search)
+    // 'search-term' will be returned in obj and in quote because it is not a proper javascript obj with the hyphen ' - '
 
     const url = withQuery(NEWS_URL, {
       q: searchTerm,
@@ -57,16 +59,14 @@ app.get('/search',
     // console.info(news)
     
     const newsContent = returnedNews.articles
-      .map(news => {
+      .map((news) => {
         return { title: news.title, image: news.urlToImage, summary: news.description, time: news.publishedAt, link: news.url }
       })
-    // console.info(title)
+    // console.info(newsContent)
 
     res.status(200)
-    res.type('title/html')
-    res.render('result', {
-      newsContent, url
-    })
+    res.type('text/html')
+    res.render('result', { newsContent })
   }  
 )
 

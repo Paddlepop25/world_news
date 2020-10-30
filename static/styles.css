@@ -1,0 +1,36 @@
+/* news.hbs */
+.news-search {
+  width: 60vw;
+  margin: 0 auto;
+}
+
+h2 {
+  margin-top: 30px;
+}
+
+form img {
+  width: 200px;
+}
+
+/* result.hbs */
+.news-result {
+  /* outline: 1px dashed #333; */
+  width: 60vw;
+  margin: 0 auto;
+}
+
+.image {
+  margin: 0 auto;
+}
+
+img {
+  width: 400px;
+}
+
+.more-info {
+  margin-top: 10px;
+}
+
+.link {
+  text-align: right;
+}
