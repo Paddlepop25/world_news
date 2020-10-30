@@ -66,7 +66,7 @@ app.get('/search',
 
     res.status(200)
     res.type('text/html')
-    res.render('result', {
+    res.render('news', {
       newsContent,
       hasContent: newsContent.length > 0
     })

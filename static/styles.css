@@ -12,6 +12,10 @@ form img {
   width: 200px;
 }
 
+.display-none {
+  display: none;
+}
+
 /* result.hbs */
 .news-result {
   /* outline: 1px dashed #333; */
