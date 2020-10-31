@@ -38,7 +38,7 @@ app.get('/search',
   // express.urlencoded({ extended: true }),
   // express.json(),
 
-  
+
   async (req, res) => {
     const search = req.query
     const searchTerm = req.query['search-term']
@@ -51,7 +51,7 @@ app.get('/search',
       q: searchTerm,
       country: country,
       category: category,
-      apikey: API_KEY
+      apikey: API_KEY // note: this will be visible in browser, see mainTest.js for better solution
     })
     // console.info('url -------> ', url)
 
@@ -65,7 +65,7 @@ app.get('/search',
       .map((news) => {
         return { title: news.title, image: news.urlToImage, summary: news.description, time: news.publishedAt, link: news.url }
       })
-    console.info(newsContent)
+    // console.info(newsContent)
 
     res.status(200)
     res.type('text/html')
@@ -76,14 +76,14 @@ app.get('/search',
   }
 )
 
-// app.use((req, res) => {
-//   res.status(404)
-//   res.type('text/html')
-//   res.render('error404')
-// })
-
 // use static
 app.use(express.static(__dirname + '/static'))
+
+app.use((req, res) => {
+  res.status(404)
+  res.type('text/html')
+  res.render('error404')
+})
 
 // start server
 app.listen(PORT,

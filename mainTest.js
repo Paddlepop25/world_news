@@ -80,14 +80,14 @@ app.get('/search',
   }
 )
 
-// app.use((req, res) => {
-//   res.status(404)
-//   res.type('text/html')
-//   res.redirect('error404')
-// })
-
 // use static
 app.use(express.static(__dirname + '/static'))
+
+app.use((req, res) => {
+  res.status(404)
+  res.type('text/html')
+  res.render('error404')
+})
 
 // start server
 app.listen(PORT,
