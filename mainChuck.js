@@ -17,7 +17,18 @@ app.engine('hbs', handlebars({ defaultLayout: 'default.hbs' }))
 app.set('view engine', 'hbs')
 
 // configure app
+const headers = {
+  'X-Api-Key': API_KEY
+}
 
+fetch(url, { headers })
+  .then(result => result.json())
+  .then(result => {
+    console.info('result ----> ', result)
+  })
+  .catch(err => {
+    console.error('err -------> ', err)
+  })
 
 // https://newsapi.org/v2/top-headlines
 // ?q=covid

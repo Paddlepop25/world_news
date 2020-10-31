@@ -1,15 +1,23 @@
 /* news.hbs */
 .news-search {
   width: 60vw;
-  margin: 0 auto;
+  margin: 20px auto;
+  border: 1px dashed red;
+  padding: 30px;
+  border-radius: 20px;
 }
 
 h2 {
   margin-top: 30px;
 }
 
+.country {
+  position: relative;
+  left: 20px;
+}
+
 form img {
-  width: 200px;
+  width: 70%;
 }
 
 .display-none {

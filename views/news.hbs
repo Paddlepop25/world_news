@@ -7,29 +7,29 @@
     </div>
     <div class="form-group">
       <div class="row">
-        <div class="col-4">
+        <div class="col-4 country">
           <input class="form-check-input" type="radio" name="country" value="us">
           <img src="/images/us.png" alt="">
         </div>
-        <div class="col-4">
+        <div class="col-4 country">
           <input class="form-check-input" type="radio" name="country" value="uk">
           <img src="/images/uk.png" alt="">
         </div>
-        <div class="col-4">
+        <div class="col-4 country">
           <input class="form-check-input" type="radio" name="country" value="fr">
           <img src="/images/fr.png" alt="">
         </div>
       </div>
       <div class="row">
-        <div class="col-4">
+        <div class="col-4 country">
           <input class="form-check-input" type="radio" name="country" value="sg" checked>
           <img src="/images/sg.png" alt="">
         </div>
-        <div class="col-4">
+        <div class="col-4 country">
           <input class="form-check-input" type="radio" name="country" value="jp">
           <img src="/images/jp.png" alt="">
         </div>
-        <div class="col-4">
+        <div class="col-4 country">
           <input class="form-check-input" type="radio" name="country" value="cn">
           <img src="/images/cn.png" alt="">
         </div>
@@ -54,38 +54,3 @@
     </div>
   </form>
 </div>
-
-
-
-{{!-- attempt --}}
-{{#if hasContent}}
-{{#each newsContent}}
-<div class="news-result mt-4">
-  <h4>{{this.title}}</h4>
-
-  <div class="image">
-    {{#if this.image }}
-    <img src="{{this.image}}" alt="">
-    {{else}}
-    <img src="/images/cat.jpg" alt="">
-    {{/if}}
-    <br>
-    <figcaption>{{this.summary}}</figcaption>
-  </div>
-
-  <div class="row more-info">
-    <div class="col">
-      <p>{{this.time}}</p>
-    </div>
-    <div class="col link">
-      <a href="{{this.link}}" target="_blank">Read more...</a>
-    </div>
-  </div>
-</div>
-{{/each}}
-{{else}}
-<div class="no-result display-none">
-  <h3>Your search returns no result</h3>
-  <img src="/images/cat.jpg" alt="">
-</div>
-{{/if}}
