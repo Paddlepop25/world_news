@@ -1,3 +1,6 @@
+// load .env variables
+require('dotenv').config()
+
 // load libraries
 const express = require('express')
 const handlebars = require('express-handlebars')
@@ -10,12 +13,13 @@ const app = express()
 
 // configure environment variables
 const PORT = parseInt(process.argv[2]) || parseInt(process.env.PORT) || 3000
+
 const API_KEY = process.env.API_KEY || ""
 const NEWS_URL = 'https://newsapi.org/v2/top-headlines'
 
 // load new cache
 let cache = flatCache.load('newsCache');
-// _pathToFile: '/Users/Linda/Downloads/NUS-ISS/Server Side Foundation/chuk/day05/world_news/node_modules/flat-cache/.cache/newsCache'
+// _pathToFile: 'file:///users/Linda/Downloads/NUS-ISS/Server%20Side%20Foundation/chuk/05%2030Oct/world_news/node_modules/flat-cache/.cache/newsCache'
 
 // optionally, you can go ahead and pass the directory you want your
 // cache to be loaded from by using this
@@ -28,8 +32,8 @@ let flatCacheMiddleware = (req, res, next) => {
   let cacheContent = cache.getKey(key);
   if (cacheContent) {
     console.info('------------------------IT EXISTS------------------------')
-    console.info('cacheContent ------->', cacheContent)
-    res.send(cacheContent); //send to where?
+    console.info('cacheContent ------->', cacheContent) // will show html content
+    res.send(cacheContent); //send to where? body?
   } else {
     res.sendResponse = res.send
     res.send = (body) => {
@@ -63,9 +67,7 @@ app.get('/',
 // ?q=covid
 // &country=us
 // &category=general
-// &apiKey=8ad077af14414be291611998efbc6d1b
-
-// https://newsapi.org/v2/top-headlines?q=covid&country=us&category=general&apiKey=8ad077af14414be291611998efbc6d1b
+// &apiKey=xxx
 
 app.get('/search', flatCacheMiddleware,
   (req, res) => {
@@ -82,7 +84,7 @@ app.get('/search', flatCacheMiddleware,
       category: category,
       // apikey: API_KEY // apikey is set in the headers below
     })
-    // console.info('url -------> ', url)
+    console.info('url -------> ', url)
 
     // how to hide API keys so not visible in browser (use 2nd option in documentation)
     // do this in terminal first: export API_KEY=xxxx
@@ -95,12 +97,12 @@ app.get('/search', flatCacheMiddleware,
     fetch(url, { headers: { 'X-Api-Key': API_KEY } })
       .then(result => result.json())
       .then(result => {
-        // console.info('result ----> ', result)
+        console.info('result ----> ', result)
         const newsContent = result.articles
           .map((news) => {
             return { title: news.title, image: news.urlToImage, summary: news.description, time: news.publishedAt, link: news.url }
           })
-        // console.info(newsContent)
+        console.info(newsContent)
         res.status(200)
         res.type('text/html')
         res.render('result', {
